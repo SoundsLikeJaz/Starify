@@ -20,7 +20,7 @@ public class GravadoraTestes {
         Java.setGenero("Rock");
         System.out.println(Java);
 
-        Album JavaScript = new Album("Elberth", "JavaScript", "Jazz", 2023);
+        Album JavaScript = new Album("JavaScript", "Elberth", "Jazz", 2023);
         System.out.println(JavaScript);
 
         Faixa odeioMeusAlunos = new Faixa("Odeio Meus Alunos", Duration.ofMinutes(3).plusSeconds(35));

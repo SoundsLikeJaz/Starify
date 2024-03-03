@@ -1,4 +1,4 @@
-package br.edu.infnet.JacksonDaSilva;
+package br.edu.infnet.JacksonDaSilva.domain;
 
 import br.edu.infnet.JacksonDaSilva.model.domain.Faixa;
 import org.junit.jupiter.api.Test;

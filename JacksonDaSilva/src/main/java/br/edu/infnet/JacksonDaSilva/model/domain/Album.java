@@ -8,34 +8,38 @@ import java.util.ArrayList;
 import static br.edu.infnet.JacksonDaSilva.model.domain.metodosGlobais.duracaoFormatada;
 
 public class Album {
-    private String artista;
     private String titulo;
+    private String artista;
     private int anoLancamento;
     private final List<Faixa> faixas = new ArrayList<>();
     private String genero;
     private Duration duracao;
 
     public Album() {
-        setArtista("Desconhecido");
         setTitulo("Não informado");
+        setArtista("Desconhecido");
         setGenero("Alternativo");
         setAnoLancamento(LocalDate.now().getYear());
     }
 
-    public Album(String artista, String titulo, String genero, int anoLancamento) {
-        setArtista(artista);
-        setTitulo(titulo);
-        setGenero(genero);
-        setAnoLancamento(anoLancamento);
+    public Album(String titulo) {
+        this();
+        this.setTitulo(titulo);
     }
 
-    public String getArtista() {
-        return artista;
+    public Album(String titulo, String artista) {
+        this(titulo);
+        this.setArtista(artista);
     }
 
-    public void setArtista(String artista) throws IllegalArgumentException {
-        if(!artista.isEmpty()) this.artista = artista;
-        else throw new IllegalArgumentException("Erro: O nome do artista não pode estar em branco.");
+    public Album(String titulo, String artista, String genero) {
+        this(titulo, artista);
+        this.setGenero(genero);
+    }
+
+    public Album(String titulo, String artista, String genero, int anoLancamento) {
+        this(titulo, artista, genero);
+        this.setAnoLancamento(anoLancamento);
     }
 
     public String getTitulo() {
@@ -45,6 +49,15 @@ public class Album {
     public void setTitulo(String titulo) throws IllegalArgumentException {
         if(!titulo.isEmpty()) this.titulo = titulo;
         else throw new IllegalArgumentException("Erro: Título não pode estar em branco.");
+    }
+
+    public String getArtista() {
+        return artista;
+    }
+
+    public void setArtista(String artista) throws IllegalArgumentException {
+        if(!artista.isEmpty()) this.artista = artista;
+        else throw new IllegalArgumentException("Erro: O nome do artista não pode estar em branco.");
     }
 
     public int getAnoLancamento() {
