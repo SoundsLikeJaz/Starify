@@ -1,5 +1,7 @@
 package br.edu.infnet.JacksonDaSilva.model.domain;
 
+import feign.form.FormProperty;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,10 +10,14 @@ import java.util.ArrayList;
 import static br.edu.infnet.JacksonDaSilva.model.domain.metodosGlobais.duracaoFormatada;
 
 public class Album {
+    private String id;
+    @FormProperty("name")
     private String titulo;
+    @FormProperty("artists")
     private String artista;
     private int anoLancamento;
     private final List<Faixa> faixas = new ArrayList<>();
+    @FormProperty("genres")
     private String genero;
     private Duration duracao;
 
@@ -40,6 +46,19 @@ public class Album {
     public Album(String titulo, String artista, String genero, int anoLancamento) {
         this(titulo, artista, genero);
         this.setAnoLancamento(anoLancamento);
+    }
+
+    public Album(String titulo, String artista, String genero, int anoLancamento, String id) {
+        this(titulo, artista, genero, anoLancamento);
+        this.setId(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -104,9 +123,11 @@ public class Album {
     @Override
     public String toString() {
         return String.format("""
-                Artista: %s, Título: %s, Ano de Lançamento: %d, Gênero: %s, Número de faixas: %d%s
+                %s Artista: %s, Título: %s, Ano de Lançamento: %d, Gênero: %s, Número de faixas: %d%s
                 Faixas: %s
-                """, getArtista(), getTitulo(), getAnoLancamento(), getGenero(), faixas.size(),
+                """, getId() == null ? "" : ("ID: " + getId() + ","), getArtista(), getTitulo(), getAnoLancamento(),
+                getGenero(),
+                faixas.size(),
                 getDuracao() == null ? "" : ", Duração: " + duracaoFormatada(duracao),
                 faixas.isEmpty() ? "Álbum vazio." : getStringFaixas());
     }
