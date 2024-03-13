@@ -18,6 +18,11 @@ public class Faixa {
         setDuracao(duracao);
     }
 
+    public Faixa(String titulo, int duracao) {
+        setTitulo(titulo);
+        setDuracao(duracao);
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -29,6 +34,11 @@ public class Faixa {
 
     public Duration getDuracao() {
         return duracao;
+    }
+
+    public void setDuracao(int duracao) throws IllegalArgumentException {
+        if(duracao < 0) throw new IllegalArgumentException("Erro: A duração não pode ser negativa.");
+        else this.duracao = Duration.ofMillis(duracao);
     }
 
     public void setDuracao(Duration duracao) throws IllegalArgumentException {
