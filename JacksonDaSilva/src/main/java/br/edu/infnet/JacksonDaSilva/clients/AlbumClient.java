@@ -10,9 +10,6 @@ import java.util.Collection;
 
 @FeignClient(url = "https://api.spotify.com", name = "albumClient")
 public interface AlbumClient {
-    @GetMapping("/v1/browse/new-releases")
-    Collection<Album> getReleases(@RequestHeader("Authorization") String authorization);
-
     @GetMapping("/v1/albums/{id}")
     Album obter(@RequestHeader("Authorization") String authorization, @PathVariable String id);
 }

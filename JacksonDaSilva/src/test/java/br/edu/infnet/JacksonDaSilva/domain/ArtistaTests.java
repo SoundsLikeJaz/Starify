@@ -28,7 +28,7 @@ public class ArtistaTests {
 
     @Test
     void artistaSemAlbuns() {
-        assertEquals(0, artista.getAlbuns().length);
+        assertEquals(0, artista.getAlbuns().size());
         assertEquals("", artista.getStringAlbuns());
     }
 
@@ -40,24 +40,22 @@ public class ArtistaTests {
 
     @Test
     void artistaComAlbuns() {
-        Album a1 = new Album("Pentakill", "iii: Lost Chapter", "Rock", 2021);
-        Album a2 = new Album("KD/A", "ALL OUT", "Pop", 2020);
+        Album a1 = new Album("iii: Lost Chapter", new Artista("Pentakill"), "ptk5");
+        Album a2 = new Album("ALL OUT", new Artista("K/DA"));
 
         artista.addAlbum(a1);
         artista.addAlbum(a2);
 
-        assertEquals(2, artista.getAlbuns().length);
+        assertEquals(2, artista.getAlbuns().size());
         assertEquals("""
-                Artista: Pentakill, Título: iii: Lost Chapter, Ano de Lançamento: 2021, Gênero: Rock, Número de faixas: 0
-                Faixas: Álbum vazio.
-                Artista: KD/A, Título: ALL OUT, Ano de Lançamento: 2020, Gênero: Pop, Número de faixas: 0
-                Faixas: Álbum vazio.
+                iii: Lost Chapter, ID: ptk5
+                ALL OUT, ID: null
                 """, artista.getStringAlbuns());
     }
 
     @Test
     void artistaComFaixas() {
-        Album a2 = new Album("KD/A", "More", "Pop", 2020);
+        Album a2 = new Album("More", new Artista("K/DA"));
         Faixa theBaddest = new Faixa("THE BADDEST", Duration.ofMinutes(2).plusSeconds(42));
         Faixa more = new Faixa("MORE", Duration.ofMinutes(3).plusSeconds(37));
         Faixa villain = new Faixa("VILLAIN", Duration.ofMinutes(3).plusSeconds(19));
@@ -76,35 +74,32 @@ public class ArtistaTests {
         assertEquals(5, artista.getFaixas().size());
         assertEquals("""
 
-                Título: THE BADDEST, Duração: 02:42
-                Título: MORE, Duração: 03:37
-                Título: VILLAIN, Duração: 03:19
-                Título: Lost Chapter, Duração: 03:49
-                Título: Predator, Duração: 04:19""", artista.getStringFaixas());
+                Id: null, Título: THE BADDEST, Duração: 02:42
+                Id: null, Título: MORE, Duração: 03:37
+                Id: null, Título: VILLAIN, Duração: 03:19
+                Id: null, Título: Lost Chapter, Duração: 03:49
+                Id: null, Título: Predator, Duração: 04:19""", artista.getStringFaixas());
     }
 
     @Test
     void artistaVazio() {
         assertEquals("""
-                Nome do artista: Anônimo,\s
-                Albuns: Sem álbuns lançados.
-                """, artista.toString());
+                \nNome do artista: Anônimo, Id: null\s
+                Sem álbuns lançados.""", artista.toString());
     }
 
     @Test
     void artistaCompleto() {
         artista = new Artista("Riot Music");
 
-        Album a1 = new Album("Pentakill", "iii: Lost Chapter", "Rock", 2021);
+        Album a1 = new Album("iii: Lost Chapter", new Artista("Pentakill"));
         Faixa lostChapter = new Faixa("Lost Chapter", Duration.ofMinutes(3).plusSeconds(49));
         Faixa predator = new Faixa("Predator", Duration.ofMinutes(4).plusSeconds(19));
 
         a1.addFaixas(lostChapter);
         a1.addFaixas(predator);
 
-        artista.addAlbum(a1);
-
-        Album a2 = new Album("KD/A", "More", "Pop", 2020);
+        Album a2 = new Album("More", new Artista("K/DA"));
         Faixa theBaddest = new Faixa("THE BADDEST", Duration.ofMinutes(2).plusSeconds(42));
         Faixa more = new Faixa("MORE", Duration.ofMinutes(3).plusSeconds(37));
         Faixa villain = new Faixa("VILLAIN", Duration.ofMinutes(3).plusSeconds(19));
@@ -116,17 +111,11 @@ public class ArtistaTests {
         artista.addAlbum(a2);
 
         assertEquals("""
-                Nome do artista: Riot Music,\s
-                Albuns: Artista: Pentakill, Título: iii: Lost Chapter, Ano de Lançamento: 2021, Gênero: Rock, Número de faixas: 2, Duração: 08:08
-                Faixas:\s
-                Título: Lost Chapter, Duração: 03:49
-                Título: Predator, Duração: 04:19
-                Artista: KD/A, Título: More, Ano de Lançamento: 2020, Gênero: Pop, Número de faixas: 3, Duração: 09:38
-                Faixas:\s
-                Título: THE BADDEST, Duração: 02:42
-                Título: MORE, Duração: 03:37
-                Título: VILLAIN, Duração: 03:19
-
+                
+                Nome do artista: Riot Music, Id: null\s
+                Lista de albuns:
+                iii: Lost Chapter, ID: null
+                More, ID: null
                 """, artista.toString());
     }
 }

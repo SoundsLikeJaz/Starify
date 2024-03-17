@@ -1,11 +1,16 @@
 package br.edu.infnet.JacksonDaSilva.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.Duration;
 
 import static br.edu.infnet.JacksonDaSilva.model.domain.metodosGlobais.duracaoFormatada;
 
 public class Faixa {
+    private String id;
+    @JsonProperty("name")
     private String titulo;
+    @JsonProperty("duration_ms")
     private Duration duracao;
 
     public Faixa() {
@@ -18,9 +23,27 @@ public class Faixa {
         setDuracao(duracao);
     }
 
+    public Faixa(String titulo, Duration duracao, String id) {
+        this(titulo, duracao);
+        setId(id);
+    }
+
     public Faixa(String titulo, int duracao) {
         setTitulo(titulo);
         setDuracao(duracao);
+    }
+
+    public Faixa(String titulo, int duracao, String id) {
+        this(titulo, duracao);
+        setId(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -48,6 +71,6 @@ public class Faixa {
 
     @Override
     public String toString() {
-        return String.format("\nTítulo: %s, Duração: %s", getTitulo(), duracaoFormatada(duracao));
+        return String.format("\nId: %s, Título: %s, Duração: %s", getId(), getTitulo(), duracaoFormatada(duracao));
     }
 }

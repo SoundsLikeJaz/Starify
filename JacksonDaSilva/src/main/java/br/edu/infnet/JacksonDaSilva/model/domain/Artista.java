@@ -1,9 +1,17 @@
 package br.edu.infnet.JacksonDaSilva.model.domain;
 
+import br.edu.infnet.JacksonDaSilva.model.service.AlbumService;
+import br.edu.infnet.JacksonDaSilva.model.service.FaixaService;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Artista {
+    private String id;
+    @JsonProperty("name")
     private String nome;
     private final List<Album> albuns = new ArrayList<>();
     protected final List<Faixa> faixas = new ArrayList<>();
@@ -15,6 +23,20 @@ public class Artista {
     public Artista(String nome) {
         setNome(nome);
     }
+
+    public Artista(String nome, String id) {
+        this(nome);
+        setId(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -24,23 +46,15 @@ public class Artista {
         else throw new IllegalArgumentException("Erro: O nome do artista não pode estar em branco.");
     }
 
-    public Album[] getAlbuns() {
-        Album[] lista = new Album[albuns.size()];
-        int index = 0;
-
-        for(Album album : albuns) {
-            lista[index] = album;
-            index++;
-        }
-
-        return lista;
+    public List<Album> getAlbuns() {
+        return this.albuns;
     }
 
     public String getStringAlbuns() {
         int index = 0;
         StringBuilder todasFaixas = new StringBuilder();
         while (index < albuns.size()) {
-            todasFaixas.append(albuns.get(index).toString());
+            todasFaixas.append(albuns.get(index).getTitulo() + ", ID: " + albuns.get(index).getId() + "\n");
             index++;
         }
         return todasFaixas.toString();
@@ -49,6 +63,10 @@ public class Artista {
     public void addAlbum(Album album) {
         albuns.add(album);
         addFaixas(album.getFaixas());
+    }
+
+    public void addAlbumsExternos(List<Album> albuns, AlbumService albumService) {
+        for(Album album : albuns) addAlbum(albumService.obter(album.getId()));
     }
 
     public List<Faixa> getFaixas() {
@@ -69,7 +87,7 @@ public class Artista {
 
     @Override
     public String toString() {
-        return String.format("Nome do artista: %s, \nAlbuns: %s\n", getNome(),
-                albuns.isEmpty() ? "Sem álbuns lançados." : getStringAlbuns());
+        return String.format("\nNome do artista: %s, Id: %s %s", getNome(), getId(),
+                albuns.isEmpty() ? "\nSem álbuns lançados." : "\nLista de albuns:\n" + getStringAlbuns());
     }
 }

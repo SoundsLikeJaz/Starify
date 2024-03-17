@@ -37,14 +37,20 @@ public class FaixaTests {
     }
 
     @Test
+    void durationMs() {
+        faixa = new Faixa("ALL UP IN YOUR MIND", 169000, "auiym12");
+        assertEquals(Duration.ofMinutes(2).plusSeconds(49), faixa.getDuracao());
+    }
+
+    @Test
     void tudoCertoVazio() {
-        assertEquals("\nTítulo: Não informado, Duração: Indefinida", faixa.toString());
+        assertEquals("\nId: null, Título: Não informado, Duração: Indefinida", faixa.toString());
     }
 
     @Test
     void tudoCertoPreenchido() {
-        faixa = new Faixa("Loner", Duration.ofMinutes(3).plusSeconds(32));
+        faixa = new Faixa("Loner", Duration.ofMinutes(3).plusSeconds(32), "123l");
         assertEquals(Duration.ofMinutes(3).plusSeconds(32), faixa.getDuracao());
-        assertEquals("\nTítulo: Loner, Duração: 03:32", faixa.toString());
+        assertEquals("\nId: 123l, Título: Loner, Duração: 03:32", faixa.toString());
     }
 }
