@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AlbumLoader implements ApplicationRunner {
-
     @Autowired
     private AlbumService albumService;
 

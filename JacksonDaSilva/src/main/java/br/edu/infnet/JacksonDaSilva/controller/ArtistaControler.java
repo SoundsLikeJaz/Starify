@@ -1,7 +1,6 @@
 package br.edu.infnet.JacksonDaSilva.controller;
 
 import br.edu.infnet.JacksonDaSilva.model.domain.Artista;
-import br.edu.infnet.JacksonDaSilva.model.domain.Faixa;
 import br.edu.infnet.JacksonDaSilva.model.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
