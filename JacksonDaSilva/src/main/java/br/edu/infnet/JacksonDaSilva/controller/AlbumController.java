@@ -11,7 +11,6 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/starify/albuns")
 public class AlbumController {
-
     @Autowired
     private AlbumService albumService;
 

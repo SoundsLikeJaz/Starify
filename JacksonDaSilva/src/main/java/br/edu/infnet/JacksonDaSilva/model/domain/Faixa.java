@@ -1,6 +1,7 @@
 package br.edu.infnet.JacksonDaSilva.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.time.Duration;
 
@@ -10,7 +11,6 @@ public class Faixa {
     private String id;
     @JsonProperty("name")
     private String titulo;
-    @JsonProperty("duration_ms")
     private Duration duracao;
 
     public Faixa() {
@@ -59,6 +59,7 @@ public class Faixa {
         return duracao;
     }
 
+    @JsonSetter("duration_ms")
     public void setDuracao(int duracao) throws IllegalArgumentException {
         if(duracao < 0) throw new IllegalArgumentException("Erro: A duração não pode ser negativa.");
         else this.duracao = Duration.ofMillis(duracao);
